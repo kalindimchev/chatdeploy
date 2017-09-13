@@ -8,6 +8,6 @@ var port = process.env.PORT || 3000;
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
-app.user('/', chatcat.router);
+app.use('/', chatcat.router);
 
 app.listen(port);
