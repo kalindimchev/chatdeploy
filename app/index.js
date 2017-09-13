@@ -1,10 +1,10 @@
 'user strict'
 
-const router = require('express').Router();
+// const router = require('express').Router();
 
-router.get('/', (req, res, next) => {
-    res.render('login');
-});
+// router.get('/', (req, res, next) => {
+//     res.render('login');
+// });
 
 module.exports = {
     router: require('./routes')()

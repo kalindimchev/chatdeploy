@@ -1,4 +1,5 @@
 'use strict';
+const router = require('express').Router(); 
 
 module.exports = () => {
     let routes = {
@@ -14,11 +15,11 @@ module.exports = () => {
             },
             '/chat': (req, res, next) => {
                 res.render('chatroom');               
-            },          
+            }         
         },
         'post': {
 
-        },          
+        }        
     }
 
     let registerRoutes = (routes, method) => {
@@ -30,8 +31,6 @@ module.exports = () => {
                     router.get(key, routes[key]);
                 } else if(method === 'post') {
                     router.post(key, routes[key]);
-                } else {
-                    router.use(routes[key]);
                 }
             }
         }
