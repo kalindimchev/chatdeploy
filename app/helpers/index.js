@@ -1,6 +1,7 @@
 'use strict';
 
-const router = require('express').Router(); 
+const router = require('express').Router();
+const db = require('../db');
 
 let _registerRoutes = (routes, method) => {
     for(let key in routes) {
@@ -49,8 +50,21 @@ let createNewUser = profile => {
     });
 }
 
+let findById = id => {
+    return new Promise((resolve, reject) => {
+        db.userModel.findById(id, (error, user) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(user);
+            }
+        }); 
+    });
+}
+
 module.exports = {
     route,
     findOne,
-    createNewUser
+    createNewUser,
+    findById
 }

@@ -6,6 +6,17 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 const helper = require('../helpers');
 
 module.exports = () => {
+    passport.serializeUser((user, done) => {
+        done(null, user.id);
+    });
+
+    passport.deserializeUser((id, done) => {
+        //Find the user by _id
+        helper.findById(id)
+            .then(user => done(null, user))
+            .catch(error => console.log('Error when deserializing the user'));
+    })
+    
     let authProcessor = (accessToken, refreshToken, profile, done) => {
         helper.findOne(profile.id)
             .then(result => {
