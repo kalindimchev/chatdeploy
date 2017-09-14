@@ -23,6 +23,34 @@ let route = (routes) => {
     return router;
 }
 
+//Find a single user based on a key
+let findOne = profileID => {
+    return db.userModel.findOne({
+        'profileId': profileID
+    });
+}
+
+//Create  new user
+let createNewUser = profile => {
+    return new Promise((resolve, reject) => {
+        let newChatUser = new db.userModel({
+            profileId: profile.id,
+            fullName: profile.displayName,
+            profilePic: profile.photos[0].value || ''
+        }); 
+
+        newChatUser.save(error => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(newChatUser);
+            }
+        });
+    });
+}
+
 module.exports = {
-    route
+    route,
+    findOne,
+    createNewUser
 }
