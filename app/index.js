@@ -11,7 +11,8 @@ let ioServer = app => {
     io.use((socket, next) => {
         require('./session')(socket.request, {}, next);
     });
-    
+    require('./socket')(io, app);
+
     return server;
 }
 
