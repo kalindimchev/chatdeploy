@@ -64,7 +64,7 @@ let findById = id => {
 
 //Check if the user is authenticated
 let isAuthenticated = (req, rex, next) => {
-    if (req.isAuthenticated) {
+    if (req.isAuthenticated()) {
         next();
     } else {
         res.redirect('/');
