@@ -5,7 +5,7 @@ require('./auth')();
 
 //Create IO Server instance
 let ioServer = app => {
-    return app
+    return app;
 
     // app.locals.chatrooms = [];
     // const server = require('http').Server(app);
@@ -21,5 +21,4 @@ module.exports = {
     router: require('./routes')(),
     session: require('./session'),
     ioServer
-    
 }
