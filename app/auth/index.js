@@ -33,6 +33,6 @@ module.exports = () => {
             })
     }
 
-    passport.use(new FacebookStrategy(config.fb, authProcessor));
-    passport.use(new TwitterStrategy(config.twitter, authProcessor));
+    // passport.use(new FacebookStrategy(config.fb, authProcessor));
+    // passport.use(new TwitterStrategy(config.twitter, authProcessor));
 }
