@@ -13,12 +13,16 @@ module.exports = () => {
             '/login': (req, res, next) => {
                 res.render('login');
             },
-            '/rooms': (req, res, next) => {
-                res.render('rooms');               
-            },
-            '/chat': (req, res, next) => {
-                res.render('chatroom');               
-            },
+            '/rooms': [helper.isAuthenticated, (req, res, next) => {
+                res.render('rooms', {
+                    user: req.user
+                });               
+            }],
+            '/chat': [helper.isAuthenticated, (req, res, next) => {
+                res.render('chatroom', {
+                    user: req.user
+                });               
+            }],
             '/auth/facebook': passport.authenticate('facebook'),
             '/auth/facebook/callback': passport.authenticate('facebook', {
                 successRedirect: '/rooms',
