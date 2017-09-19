@@ -15,9 +15,6 @@ app.use(passport.session());
 
 app.use('/', chatcat.router);
 
-app.listen(app.get('port'), () => {
+chatcat.ioServer(app).listen(app.get('port'), () => {
     console.log(app.get('port'));
 });
-// chatcat.ioServer(app).listen(app.get('port'), () => {
-//     console.log(app.get('port'));
-// });
