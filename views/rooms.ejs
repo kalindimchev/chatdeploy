@@ -8,9 +8,7 @@
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
 		$(() => {
-		var socket = io('<%= host %>' + '/roomslist', {
-			// transports: ['websocket']
-		});
+		var socket = io('<%= host %>' + '/roomslist');
 		console.log('Socket: ' + '<%= host %>' + '/roomslist')	
 		socket.on('connect', () => console.log('Connected to Server! -> /roomslist'));
 		
