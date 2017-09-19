@@ -28,7 +28,11 @@ module.exports = () => {
             '/auth/twitter/callback': passport.authenticate('twitter', {
                 successRedirect: '/rooms',
                 failureRedirect: '/'
-            })        
+            }),
+            '/logout':  (req, res, next) => {
+                req.logout();
+                res.redirect('/');
+            }       
         },
         'post': {
 
