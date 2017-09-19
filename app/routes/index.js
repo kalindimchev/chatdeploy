@@ -18,12 +18,12 @@ module.exports = () => {
             },
             '/chat': (req, res, next) => {
                 res.render('chatroom');               
-            }
-            // '/auth/facebook': passport.authenticate('facebook'),
-            // '/auth/facebook/callback': passport.authenticate('facebook', {
-            //     successRedirect: '/rooms',
-            //     failureRedirect: '/'
-            // }),
+            },
+            '/auth/facebook': passport.authenticate('facebook'),
+            '/auth/facebook/callback': passport.authenticate('facebook', {
+                successRedirect: '/rooms',
+                failureRedirect: '/'
+            })
             // '/auth/twitter': passport.authenticate('twitter'),
             // '/auth/twitter/callback': passport.authenticate('twitter', {
             //     successRedirect: '/rooms',
