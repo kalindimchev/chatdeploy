@@ -4,8 +4,6 @@ const express = require('express');
 const app = express();
 const chatcat = require('./app');
 const passport = require('passport');
-var io;
-var server;
 
 app.set('port', process.env.PORT || 3000);
 app.use(express.static('public'));
@@ -17,7 +15,10 @@ app.use(passport.session());
 
 app.use('/', chatcat.router);
 
-chatcat.ioServer(app).listen(app.get('port'), () => {
-    console.log('ChatCAT Running on Port: ' + app.get('port'));
-})
 // chatcat.ioServer(app);
+// server = chatcat.ioServer(app);
+chatcat.ioServer(app).listen(app.get('port'), () => {
+    console.log(app.get('port'));
+    console.log(process.env.PORT);
+    console.log('ChatCAT Running on Port: ' + app.get('port'));
+});
