@@ -2,6 +2,7 @@
 
 const router = require('express').Router();
 const db = require('../db');
+const crypto = require('crypto');
 
 let _registerRoutes = (routes, method) => {
     for(let key in routes) {
@@ -71,10 +72,100 @@ let isAuthenticated = (req, rex, next) => {
     }
 }
 
+//Find room by a given name
+let findRoomByName = (allrooms, room) => {
+    let findRoom = allrooms.findIndex((element, index, array) => {
+        if(element.room === room) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+
+    return findRoom > -1 ? true : false;
+}
+
+let randomHex = () => {
+    return crypto.randomBytes(24).toString('hex');
+}
+
+let findRoomById = (allrooms, roomID) => {
+    let findRoom = allrooms.find((element, index, array) => {
+        if(element.roomID === roomID) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+
+    return findRoom;
+}
+
+let addUserToRoom = (allrooms, data, socket) => {
+    let getRoom = findRoomById(allrooms, data.roomID);
+    if(getRoom !== undefined) {
+        // Get the active user Id (ObjectID as used in session)
+        let userID = socket.request.session.passport.user;
+        
+        //Check if the user already exists in the chatroom
+        let checkUser = getRoom.users.findIndex((element, index, array) => {
+            if(element.userID === userID) {
+                return true;
+            } else {
+                return false
+            }
+        });
+
+        // First remove the user
+        if(checkUser > -1) {
+            getRoom.users.splice(checkUser, 1);
+        }
+
+        getRoom.users.push({
+            socketID: socket.id,
+            userID,
+            user: data.user,
+            userPic: data.userPic
+        });
+
+        //Join the room channel
+        socket.join(data.roomID);
+
+        //Return the updated room object
+
+        return getRoom;              
+    }
+}
+
+//Find and remove the user when a socket disconnects
+let removeUserFromRoom = (allrooms, socket) => {
+    for (let room of allrooms) {
+        let findUser = room.users.findIndex((element, index, array) => {
+            if (element.socketID === socket.id) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+
+        if (findUser > -1) {
+            socket.leave(room.roomID);
+            room.users.splice(findUser, 1);
+
+            return room;
+        }            
+    }
+}
+
 module.exports = {
     route,
     findOne,
     createNewUser,
     findById,
-    isAuthenticated
+    isAuthenticated,
+    findRoomByName,
+    randomHex, 
+    findRoomById,
+    addUserToRoom,
+    removeUserFromRoom
 }
