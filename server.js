@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const app = express();
+const app = require('express')();
 const chatcat = require('./app');
 const passport = require('passport');
 var io;
@@ -17,4 +17,4 @@ app.use(passport.session());
 
 app.use('/', chatcat.router);
 
-chatcat.ioServer(app);
+chatcat.ioServer(app).listen(app.get('port'));
