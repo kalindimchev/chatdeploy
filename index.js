@@ -17,7 +17,4 @@ app.use(passport.session());
 
 app.use('/', chatcat.router);
 
-server = app.listen(app.get('port'), () => {
-    console.log(app.get('port'));
-});
-io = require('socket.io').listen(server);
+chatcat.ioServer(app);
