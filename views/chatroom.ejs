@@ -10,9 +10,7 @@
 	<script>
 		'use strict';
 		$(() => {
-			var socket = io('<%= host %>' + '/chatter', {
-				transports: ['websocket']
-			});
+			var socket = io('<%= host %>' + '/chatter');
 			var roomID = '<%= roomID %>';
 			var user = '<%= user.fullName %>';
 			var userPic = '<%= user.profilePic %>';
