@@ -4,6 +4,8 @@ const express = require('express');
 const app = express();
 const chatcat = require('./app');
 const passport = require('passport');
+var io;
+var server;
 
 app.set('port', process.env.PORT || 3000);
 app.use(express.static('public'));
@@ -15,6 +17,7 @@ app.use(passport.session());
 
 app.use('/', chatcat.router);
 
-app.listen(app.get('port'), () => {
+server = app.listen(app.get('port'), () => {
     console.log(app.get('port'));
 });
+io = require('socket.io').listen(server);
