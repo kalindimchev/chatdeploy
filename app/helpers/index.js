@@ -1,14 +1,16 @@
-'use strict';
+'use strict'
 
 const router = require('express').Router();
 const db = require('../db');
 const crypto = require('crypto');
 
+
 let _registerRoutes = (routes, method) => {
     for(let key in routes) {
-        if(typeof routes[key] === 'object' && routes[key] != null && !(routes[key] instanceof Array)) {
+        if(typeof routes[key] === 'object' && routes[key] !== null && !(routes[key] instanceof Array)) {
             _registerRoutes(routes[key], key);
         } else {
+
             if(method === 'get') {
                 router.get(key, routes[key]);
             } else if(method === 'post') {
@@ -20,7 +22,7 @@ let _registerRoutes = (routes, method) => {
     }
 }
 
-let route = (routes) => {
+let route = routes => {
     _registerRoutes(routes);
     return router;
 }
@@ -64,7 +66,7 @@ let findById = id => {
 }
 
 //Check if the user is authenticated
-let isAuthenticated = (req, rex, next) => {
+let isAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
         next();
     } else {
@@ -90,15 +92,13 @@ let randomHex = () => {
 }
 
 let findRoomById = (allrooms, roomID) => {
-    let findRoom = allrooms.find((element, index, array) => {
+    return allrooms.find((element, index, array) => {
         if(element.roomID === roomID) {
             return true;
         } else {
             return false;
         }
     });
-
-    return findRoom;
 }
 
 let addUserToRoom = (allrooms, data, socket) => {
@@ -112,7 +112,7 @@ let addUserToRoom = (allrooms, data, socket) => {
             if(element.userID === userID) {
                 return true;
             } else {
-                return false
+                return false;
             }
         });
 
