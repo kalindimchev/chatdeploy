@@ -6,6 +6,7 @@ const config = require('../config');
 const db = require('../db');
 
 if(process.env.NODE_ENV === 'production') {
+
     module.exports = session({
         secret: config.sessionSecret,
         resave: false,
@@ -15,9 +16,10 @@ if(process.env.NODE_ENV === 'production') {
         })
     })
 } else {
+
     module.exports = session({
         secret: config.sessionSecret,
         resave: false,
         saveUninitialized: true
-    })
+    });
 }

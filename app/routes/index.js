@@ -7,10 +7,10 @@ module.exports = () => {
     let routes = {
         'get': {
             '/': (req, res, next) => {
-                res.render('login', {title: 'title hoi'});
+                res.render('login');
             },
             '/login': (req, res, next) => {
-                res.render('login', {title: 'title hoi'});
+                res.render('login');
             },
             '/rooms': [helper.isAuthenticated, (req, res, next) => {
                 res.render('rooms', {
@@ -41,7 +41,7 @@ module.exports = () => {
                 successRedirect: '/rooms',
                 failureRedirect: '/'
             }),
-            '/logout':  (req, res, next) => {
+            '/logout': (req, res, next) => {
                 req.logout();
                 res.redirect('/');
             }
