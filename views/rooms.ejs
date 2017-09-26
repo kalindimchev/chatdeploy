@@ -9,19 +9,19 @@
 	<script>
 		'use strict';
 		$(() => {
-			var socket = io('<%= host %>' + '/roomslist', {
+			let socket = io('<%= host %>' + '/roomslist', {
 				transports: ['websocket']
 			});
 			console.log('Socket: ' + '<%= host %>' + '/roomslist')	
 			socket.on('connect', () => console.log('Connected to Server! -> /roomslist'));
 			
-			var newRoomInput = $("input[name='roomName']");
+			let newRoomInput = $("input[name='roomName']");
 
-			var renderChatRooms = chatrooms => {
-				var roomsListDiv = $('#roomsListUL');
-				var listStr = '';
+			let renderChatRooms = chatrooms => {
+				let roomsListDiv = $('#roomsListUL');
+				let listStr = '';
 
-				for(var cat of chatrooms) {
+				for(let cat of chatrooms) {
 					listStr += `<a href="/chat/${cat.roomID}"><li>${cat.room}</li></a>`;
 				}
 
@@ -44,9 +44,7 @@
 					
 					newRoomInput.val('');
 				}
-			})
-			
-
+			});			
 		});
 	</script>
 
